@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#06121f" />
-  <title>Yodo — Navega con impacto</title>
+  <title>Yodo</title>
 
   <style>
     * {
@@ -16,103 +16,86 @@
     body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color: #ffffff;
-      background:
-        radial-gradient(1200px 800px at 15% 10%, rgba(24,140,210,.55), rgba(6,18,31,.95)),
-        radial-gradient(900px 700px at 85% 20%, rgba(34,197,94,.10), rgba(6,18,31,0)),
-        linear-gradient(180deg, #031426 0%, #06121f 100%);
+      background: #06121f;
     }
 
     .wrap {
-      max-width: 980px;
+      max-width: 860px;
       min-height: 100vh;
       margin: auto;
-      padding: 28px 24px;
+      padding: 28px 22px 40px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
     }
 
     /* LOGO */
     .logo {
-      width: clamp(240px, 32vw, 360px);
-      margin-bottom: 14px;
+      width: 200px;
+      margin-bottom: 24px;
     }
 
-    /* IMPACTO */
-    .impact-card {
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 24px;
-      padding: 24px;
-      margin-bottom: 28px;
-      max-width: 760px;
-    }
-
-    .impact-eyebrow {
-      font-size: 12px;
-      letter-spacing: .16em;
-      color: #9bd3ff;
+    /* TEXTO IMPACTO */
+    .headline {
+      font-size: clamp(22px, 4.5vw, 30px);
+      font-weight: 900;
+      line-height: 1.2;
+      max-width: 720px;
       margin-bottom: 12px;
     }
 
-    .impact-main {
-      font-size: 22px;
-      font-weight: 900;
-      line-height: 1.35;
-      margin-bottom: 10px;
-    }
-
-    .impact-goal {
+    .subhead {
       font-size: 15px;
       color: #cbd5e1;
+      max-width: 720px;
+      margin-bottom: 36px;
     }
 
-    /* GRID TIENDAS */
+    /* TIENDAS */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-      max-width: 760px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 36px;
+      max-width: 720px;
     }
 
     .card {
-      background: rgba(12,90,145,.95);
+      background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.12);
-      border-radius: 20px;
-      padding: 18px 20px;
+      border-radius: 14px;
+      padding: 14px 16px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-weight: 800;
+      justify-content: space-between;
       cursor: pointer;
-      transition: all .15s ease;
+      transition: background .15s ease, transform .15s ease;
     }
 
     .card:hover {
-      background: rgba(20,125,190,.98);
-      transform: translateY(-2px);
+      background: rgba(255,255,255,.10);
+      transform: translateY(-1px);
     }
 
-    .card-left {
+    .left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      font-weight: 700;
     }
 
     .icon {
-      width: 22px;
-      height: 22px;
-      object-fit: contain;
+      width: 18px;
+      height: 18px;
+      opacity: .85;
       filter: brightness(0) invert(1);
     }
 
     .partner {
-      font-size: 11px;
-      padding: 4px 12px;
+      font-size: 10px;
+      padding: 3px 8px;
       border-radius: 999px;
-      background: rgba(255,255,255,.22);
-      font-weight: 900;
+      background: rgba(255,255,255,.12);
+      font-weight: 700;
     }
 
     /* CTA */
@@ -120,9 +103,9 @@
       background: #000000;
       color: #ffffff;
       border: none;
-      border-radius: 22px;
-      padding: 18px 26px;
-      font-size: 17px;
+      border-radius: 18px;
+      padding: 16px 22px;
+      font-size: 16px;
       font-weight: 900;
       cursor: pointer;
       width: fit-content;
@@ -136,7 +119,7 @@
     .small {
       font-size: 12px;
       color: #94a3b8;
-      max-width: 760px;
+      max-width: 720px;
       line-height: 1.45;
     }
   </style>
@@ -149,46 +132,44 @@
     <img src="assets/logo.png" alt="Yodo" class="logo" />
 
     <!-- IMPACTO -->
-    <div class="impact-card">
-      <div class="impact-eyebrow">AGUA POTABLE FINANCIADA</div>
-      <div class="impact-main">
-        Un año navegando con Yodo equivale a un año de agua potable para una persona.
-      </div>
-      <div class="impact-goal">
-        Nuestro objetivo: <strong>ayudar a 10 millones de personas a acceder a agua potable</strong>.
-      </div>
-    </div>
+    <h1 class="headline">
+      Un año navegando con Yodo equivale a un año de agua potable para una persona.
+    </h1>
+
+    <p class="subhead">
+      Nuestro objetivo: ayudar a <strong>10 millones de personas</strong> a acceder a agua potable.
+    </p>
 
     <!-- TIENDAS -->
     <div class="grid">
 
       <div class="card" onclick="go('AMAZON')">
-        <div class="card-left">
-          <img src="assets/amazon.png" class="icon" alt="Amazon" />
-          <span>Amazon</span>
+        <div class="left">
+          <img src="assets/amazon.svg" class="icon" alt="Amazon" />
+          Amazon
         </div>
         <span class="partner">PARTNER</span>
       </div>
 
       <div class="card" onclick="go('EL_CORTE_INGLES')">
-        <div class="card-left">
-          <img src="assets/elcorteingles.png" class="icon" alt="El Corte Inglés" />
-          <span>El Corte Inglés</span>
+        <div class="left">
+          <img src="assets/elcorteingles.svg" class="icon" alt="El Corte Inglés" />
+          El Corte Inglés
         </div>
         <span class="partner">PARTNER</span>
       </div>
 
       <div class="card" onclick="go('MEDIAMARKT')">
-        <div class="card-left">
-          <img src="assets/mediamarkt.png" class="icon" alt="MediaMarkt" />
-          <span>MediaMarkt</span>
+        <div class="left">
+          <img src="assets/mediamarkt.svg" class="icon" alt="MediaMarkt" />
+          MediaMarkt
         </div>
       </div>
 
       <div class="card" onclick="go('DECATHLON')">
-        <div class="card-left">
-          <img src="assets/decathlon.png" class="icon" alt="Decathlon" />
-          <span>Decathlon</span>
+        <div class="left">
+          <img src="assets/decathlon.svg" class="icon" alt="Decathlon" />
+          Decathlon
         </div>
       </div>
 
@@ -196,7 +177,7 @@
 
     <!-- CTA -->
     <button class="cta" onclick="goDesktop()">
-      💻 Instalar Yodo en ordenador
+      Instalar Yodo en ordenador
     </button>
 
     <div class="small">
@@ -208,4 +189,5 @@
   <script src="app.js"></script>
 </body>
 </html>
+
 
