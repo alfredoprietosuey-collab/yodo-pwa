@@ -1,38 +1,136 @@
-<script>
-  (function () {
-    const alreadyShown = localStorage.getItem('yodo_add_to_home');
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b2a44" />
+  <title>Yodo</title>
 
-    if (alreadyShown || isStandalone) return;
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
 
-    const banner = document.createElement('div');
-    banner.style.position = 'fixed';
-    banner.style.bottom = '20px';
-    banner.style.left = '50%';
-    banner.style.transform = 'translateX(-50%)';
-    banner.style.background = 'rgba(0,0,0,0.85)';
-    banner.style.color = 'white';
-    banner.style.padding = '14px 18px';
-    banner.style.borderRadius = '16px';
-    banner.style.fontSize = '14px';
-    banner.style.zIndex = '9999';
-    banner.style.maxWidth = '90%';
-    banner.style.textAlign = 'center';
-    banner.style.boxShadow = '0 10px 30px rgba(0,0,0,.4)';
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    banner.innerHTML = isIOS
-      ? 'Guarda Yodo en tu móvil:<br><b>Compartir → Añadir a pantalla de inicio</b>'
-      : 'Añade Yodo a tu pantalla de inicio y úsalo como una app';
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: #ffffff;
+      background:
+        linear-gradient(
+          rgba(6,18,31,.75),
+          rgba(6,18,31,.9)
+        ),
+        url("assets/fondo.jpg") center / cover no-repeat fixed;
+      min-height: 100vh;
+    }
 
-    document.body.appendChild(banner);
+    .wrap {
+      max-width: 900px;
+      margin: auto;
+      padding: 28px 22px 40px;
+    }
 
-    setTimeout(() => {
-      banner.remove();
-      localStorage.setItem('yodo_add_to_home', 'true');
-    }, 8000);
-  })();
-</script>
+    /* LOGO */
+    .logo {
+      width: 220px;
+      margin-bottom: 22px;
+    }
+
+    /* TEXTO */
+    h1 {
+      font-size: clamp(26px, 4.5vw, 40px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      max-width: 820px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #d1d9e6;
+      max-width: 720px;
+      margin-bottom: 34px;
+    }
+
+    /* GRID TIENDAS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+      max-width: 720px;
+    }
+
+    .card {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform .15s ease, background .15s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .card:hover {
+      background: rgba(255,255,255,.18);
+      transform: translateY(-2px);
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 17px;
+    }
+
+    .icon {
+      width: 22px;
+      height: 22px;
+      filter: brightness(0) invert(1);
+      opacity: .9;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .partner {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.25);
+      font-weight: 800;
+    }
+
+    .star {
+      font-size: 18px;
+      opacity: .4;
+      cursor: pointer;
+      transition: opacity .15s ease, transform .15s ease;
+    }
+
+    .star.active {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+
+    /* CTA */
+    .cta {
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 18px 26
 
 
 
