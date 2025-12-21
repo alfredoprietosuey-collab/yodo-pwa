@@ -1,232 +1,38 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#06121f" />
-  <title>Yodo</title>
+<script>
+  (function () {
+    const alreadyShown = localStorage.getItem('yodo_add_to_home');
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    if (alreadyShown || isStandalone) return;
 
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color: #ffffff;
-      background: #06121f;
-    }
+    const banner = document.createElement('div');
+    banner.style.position = 'fixed';
+    banner.style.bottom = '20px';
+    banner.style.left = '50%';
+    banner.style.transform = 'translateX(-50%)';
+    banner.style.background = 'rgba(0,0,0,0.85)';
+    banner.style.color = 'white';
+    banner.style.padding = '14px 18px';
+    banner.style.borderRadius = '16px';
+    banner.style.fontSize = '14px';
+    banner.style.zIndex = '9999';
+    banner.style.maxWidth = '90%';
+    banner.style.textAlign = 'center';
+    banner.style.boxShadow = '0 10px 30px rgba(0,0,0,.4)';
 
-    .wrap {
-      max-width: 860px;
-      min-height: 100vh;
-      margin: auto;
-      padding: 28px 22px 40px;
-      display: flex;
-      flex-direction: column;
-    }
+    banner.innerHTML = isIOS
+      ? 'Guarda Yodo en tu móvil:<br><b>Compartir → Añadir a pantalla de inicio</b>'
+      : 'Añade Yodo a tu pantalla de inicio y úsalo como una app';
 
-    /* LOGO */
-    .logo {
-      width: 200px;
-      margin-bottom: 24px;
-    }
+    document.body.appendChild(banner);
 
-    /* TEXTO IMPACTO */
-    .headline {
-      font-size: clamp(22px, 4.5vw, 30px);
-      font-weight: 900;
-      line-height: 1.2;
-      max-width: 720px;
-      margin-bottom: 12px;
-    }
+    setTimeout(() => {
+      banner.remove();
+      localStorage.setItem('yodo_add_to_home', 'true');
+    }, 8000);
+  })();
+</script>
 
-    .subhead {
-      font-size: 15px;
-      color: #cbd5e1;
-      max-width: 720px;
-      margin-bottom: 28px;
-    }
-
-    /* TIENDAS */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-bottom: 36px;
-      max-width: 720px;
-    }
-
-    .card {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: background .15s ease, transform .15s ease;
-    }
-
-    .card:hover {
-      background: rgba(255,255,255,.10);
-      transform: translateY(-1px);
-    }
-
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-    }
-
-    .icon {
-      width: 18px;
-      height: 18px;
-      opacity: .85;
-      filter: brightness(0) invert(1);
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .partner {
-      font-size: 10px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.12);
-      font-weight: 700;
-    }
-
-    .star {
-      font-size: 16px;
-      cursor: pointer;
-      opacity: .35;
-      transition: opacity .15s ease, transform .15s ease;
-    }
-
-    .star.active {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-
-    /* CTA */
-    .cta {
-      background: #000000;
-      color: #ffffff;
-      border: none;
-      border-radius: 18px;
-      padding: 16px 22px;
-      font-size: 16px;
-      font-weight: 900;
-      cursor: pointer;
-      width: fit-content;
-      margin-bottom: 16px;
-    }
-
-    .cta:hover {
-      background: #111111;
-    }
-
-    .small {
-      font-size: 12px;
-      color: #94a3b8;
-      max-width: 720px;
-      line-height: 1.45;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-
-    <!-- LOGO -->
-    <img src="assets/logo.png" alt="Yodo" class="logo" />
-
-    <!-- IMPACTO -->
-    <h1 class="headline">
-      Un año navegando con Yodo equivale a un año de agua potable para una persona.
-    </h1>
-
-    <p class="subhead">
-      Nuestro objetivo: ayudar a <strong>10 millones de personas</strong> a acceder a agua potable.
-    </p>
-
-    <!-- TIENDAS -->
-    <div class="grid" id="grid"></div>
-
-    <!-- CTA -->
-    <button class="cta" onclick="goDesktop()">
-      Instalar Yodo en ordenador
-    </button>
-
-    <div class="small">
-      Usamos enlaces de afiliación para financiar proyectos de agua sin ningún coste para ti.
-    </div>
-
-  </div>
-
-  <script>
-    const stores = [
-      { id: 'amazon', name: 'Amazon', icon: 'assets/amazon.svg', partner: true },
-      { id: 'eci', name: 'El Corte Inglés', icon: 'assets/elcorteingles.svg', partner: true },
-      { id: 'mediamarkt', name: 'MediaMarkt', icon: 'assets/mediamarkt.svg', partner: false },
-      { id: 'decathlon', name: 'Decathlon', icon: 'assets/decathlon.svg', partner: false }
-    ];
-
-    const favKey = 'yodo_favorites';
-    const grid = document.getElementById('grid');
-
-    function getFavs() {
-      return JSON.parse(localStorage.getItem(favKey) || '[]');
-    }
-
-    function toggleFav(id) {
-      let favs = getFavs();
-      favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id];
-      localStorage.setItem(favKey, JSON.stringify(favs));
-      render();
-    }
-
-    function render() {
-      const favs = getFavs();
-      const sorted = [
-        ...stores.filter(s => favs.includes(s.id)),
-        ...stores.filter(s => !favs.includes(s.id))
-      ];
-
-      grid.innerHTML = '';
-      sorted.forEach(store => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.onclick = () => go(store.id);
-
-        card.innerHTML = `
-          <div class="left">
-            <img src="${store.icon}" class="icon" />
-            ${store.name}
-          </div>
-          <div class="actions">
-            ${store.partner ? `<span class="partner">PARTNER</span>` : ''}
-            <span class="star ${favs.includes(store.id) ? 'active' : ''}"
-              onclick="event.stopPropagation(); toggleFav('${store.id}')">
-              ⭐
-            </span>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    render();
-  </script>
-</body>
-</html>
 
 
