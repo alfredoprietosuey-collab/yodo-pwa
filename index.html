@@ -11,60 +11,108 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: #06121f;
       color: #ffffff;
+      background: 
+        linear-gradient(rgba(6,18,31,.85), rgba(6,18,31,.85)),
+        url("assets/fondo.png") center / cover no-repeat fixed;
     }
-    .wrap { padding: 20px; max-width: 900px; margin: auto; }
-    h1 { font-size: 22px; }
-    p { color: #cbd5e1; }
+
+    .wrap {
+      padding: 24px;
+      max-width: 960px;
+      margin: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.2;
+      margin: 0 0 12px;
+    }
+
+    p {
+      color: #cbd5e1;
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      margin-top: 20px;
+      gap: 14px;
+      margin-bottom: 28px;
     }
+
     .card {
-      background: #0b3a5a;
-      padding: 16px;
-      border-radius: 12px;
+      background: rgba(11,58,90,.9);
+      border-radius: 16px;
+      padding: 18px;
       text-align: center;
       cursor: pointer;
+      font-weight: 600;
+      transition: transform .15s ease, background .15s ease;
     }
-    .card:hover { background: #145b86; }
-    .btn {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 12px 16px;
+
+    .card:hover {
+      background: rgba(20,91,134,.95);
+      transform: translateY(-2px);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       background: #22c55e;
       color: #062312;
+      padding: 16px 22px;
+      border-radius: 18px;
+      font-size: 16px;
+      font-weight: 700;
       text-decoration: none;
-      border-radius: 12px;
-      font-weight: bold;
+      width: fit-content;
     }
-    .small { font-size: 12px; color: #94a3b8; margin-top: 16px; }
+
+    .small {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 20px;
+      max-width: 520px;
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <h1>Yodo 💧</h1>
-    <p>Accede a tus tiendas habituales y apoya proyectos de agua.</p>
+    <img src="assets/logo.png" alt="Yodo" class="logo" />
+
+    <h1>Accede a tus tiendas habituales<br/>y apoya proyectos de agua</h1>
+
+    <p>
+      Con Yodo, cada compra online contribuye a generar impacto social real.
+    </p>
 
     <div class="grid">
-      <div class="card" onclick="go('https://www.amazon.es')">Amazon</div>
-      <div class="card" onclick="go('https://www.elcorteingles.es')">El Corte Inglés</div>
-      <div class="card" onclick="go('https://www.mediamarkt.es')">MediaMarkt</div>
-      <div class="card" onclick="go('https://www.decathlon.es')">Decathlon</div>
+      <div class="card" onclick="go('AMAZON')">Amazon</div>
+      <div class="card" onclick="go('EL_CORTE_INGLES')">El Corte Inglés</div>
+      <div class="card" onclick="go('MEDIAMARKT')">MediaMarkt</div>
+      <div class="card" onclick="go('DECATHLON')">Decathlon</div>
     </div>
 
-    <a class="btn" href="#" onclick="alert('Aquí irá el link de instalación en ordenador')">
+    <a class="cta" href="#" onclick="alert('Aquí irá la instalación de escritorio')">
       💻 Instalar Yodo en ordenador
     </a>
 
-    <p class="small">
-      Algunos enlaces pueden generar comisión sin coste adicional.
-      Esa comisión ayuda a sostener Yodo y su impacto.
-    </p>
+    <div class="small">
+      Usamos links de afiliacion para financiar proyectos de agua sin ningun coste para ti
+    </div>
   </div>
 
   <script src="app.js"></script>
