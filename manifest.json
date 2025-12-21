@@ -1,0 +1,10 @@
+{
+  "name": "Yodo",
+  "short_name": "Yodo",
+  "description": "Accede a tus tiendas habituales apoyando proyectos de agua.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#06121f",
+  "theme_color": "#0b3a5a",
+  "icons": []
+}
