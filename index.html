@@ -47,7 +47,7 @@
       font-size: 15px;
       color: #cbd5e1;
       max-width: 720px;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
     }
 
     /* TIENDAS */
@@ -90,12 +90,30 @@
       filter: brightness(0) invert(1);
     }
 
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .partner {
       font-size: 10px;
       padding: 3px 8px;
       border-radius: 999px;
       background: rgba(255,255,255,.12);
       font-weight: 700;
+    }
+
+    .star {
+      font-size: 16px;
+      cursor: pointer;
+      opacity: .35;
+      transition: opacity .15s ease, transform .15s ease;
+    }
+
+    .star.active {
+      opacity: 1;
+      transform: scale(1.1);
     }
 
     /* CTA */
@@ -141,39 +159,7 @@
     </p>
 
     <!-- TIENDAS -->
-    <div class="grid">
-
-      <div class="card" onclick="go('AMAZON')">
-        <div class="left">
-          <img src="assets/amazon.svg" class="icon" alt="Amazon" />
-          Amazon
-        </div>
-        <span class="partner">PARTNER</span>
-      </div>
-
-      <div class="card" onclick="go('EL_CORTE_INGLES')">
-        <div class="left">
-          <img src="assets/elcorteingles.svg" class="icon" alt="El Corte Inglés" />
-          El Corte Inglés
-        </div>
-        <span class="partner">PARTNER</span>
-      </div>
-
-      <div class="card" onclick="go('MEDIAMARKT')">
-        <div class="left">
-          <img src="assets/mediamarkt.svg" class="icon" alt="MediaMarkt" />
-          MediaMarkt
-        </div>
-      </div>
-
-      <div class="card" onclick="go('DECATHLON')">
-        <div class="left">
-          <img src="assets/decathlon.svg" class="icon" alt="Decathlon" />
-          Decathlon
-        </div>
-      </div>
-
-    </div>
+    <div class="grid" id="grid"></div>
 
     <!-- CTA -->
     <button class="cta" onclick="goDesktop()">
@@ -186,7 +172,60 @@
 
   </div>
 
-  <script src="app.js"></script>
+  <script>
+    const stores = [
+      { id: 'amazon', name: 'Amazon', icon: 'assets/amazon.svg', partner: true },
+      { id: 'eci', name: 'El Corte Inglés', icon: 'assets/elcorteingles.svg', partner: true },
+      { id: 'mediamarkt', name: 'MediaMarkt', icon: 'assets/mediamarkt.svg', partner: false },
+      { id: 'decathlon', name: 'Decathlon', icon: 'assets/decathlon.svg', partner: false }
+    ];
+
+    const favKey = 'yodo_favorites';
+    const grid = document.getElementById('grid');
+
+    function getFavs() {
+      return JSON.parse(localStorage.getItem(favKey) || '[]');
+    }
+
+    function toggleFav(id) {
+      let favs = getFavs();
+      favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id];
+      localStorage.setItem(favKey, JSON.stringify(favs));
+      render();
+    }
+
+    function render() {
+      const favs = getFavs();
+      const sorted = [
+        ...stores.filter(s => favs.includes(s.id)),
+        ...stores.filter(s => !favs.includes(s.id))
+      ];
+
+      grid.innerHTML = '';
+      sorted.forEach(store => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => go(store.id);
+
+        card.innerHTML = `
+          <div class="left">
+            <img src="${store.icon}" class="icon" />
+            ${store.name}
+          </div>
+          <div class="actions">
+            ${store.partner ? `<span class="partner">PARTNER</span>` : ''}
+            <span class="star ${favs.includes(store.id) ? 'active' : ''}"
+              onclick="event.stopPropagation(); toggleFav('${store.id}')">
+              ⭐
+            </span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    render();
+  </script>
 </body>
 </html>
 
