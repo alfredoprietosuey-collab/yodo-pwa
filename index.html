@@ -3,118 +3,141 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b3a5a" />
+  <meta name="theme-color" content="#06121f" />
   <title>Yodo — Navega con impacto</title>
 
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color: #ffffff;
       background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(18,110,170,.55), rgba(6,18,31,.92)),
-        radial-gradient(900px 600px at 80% 20%, rgba(34,197,94,.10), rgba(6,18,31,0)),
-        linear-gradient(180deg, #041a2f 0%, #06121f 100%);
+        radial-gradient(1200px 800px at 15% 10%, rgba(24,140,210,.55), rgba(6,18,31,.95)),
+        radial-gradient(900px 700px at 85% 20%, rgba(34,197,94,.10), rgba(6,18,31,0)),
+        linear-gradient(180deg, #031426 0%, #06121f 100%);
     }
 
     .wrap {
-      padding: 24px;
-      max-width: 960px;
-      margin: auto;
+      max-width: 980px;
       min-height: 100vh;
+      margin: auto;
+      padding: 28px 24px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
+    /* LOGO */
     .logo {
-      width: clamp(180px, 22vw, 280px);
-      margin-bottom: 24px;
+      width: clamp(240px, 32vw, 360px);
+      margin-bottom: 14px;
     }
 
-    /* ===== Impact Card (estilo navegador desktop) ===== */
+    /* IMPACTO */
     .impact-card {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 22px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 24px;
       padding: 24px;
       margin-bottom: 28px;
-      max-width: 720px;
+      max-width: 760px;
     }
 
     .impact-eyebrow {
       font-size: 12px;
-      letter-spacing: .14em;
+      letter-spacing: .16em;
       color: #9bd3ff;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .impact-main {
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 900;
       line-height: 1.35;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .impact-goal {
-      font-size: 14px;
+      font-size: 15px;
       color: #cbd5e1;
     }
 
-    /* ===== Grid tiendas ===== */
+    /* GRID TIENDAS */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 14px;
-      margin-bottom: 26px;
-      max-width: 720px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+      max-width: 760px;
     }
 
     .card {
-      background: rgba(10,78,120,.92);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 18px;
-      padding: 16px;
-      cursor: pointer;
+      background: rgba(12,90,145,.95);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      padding: 18px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-weight: 700;
-      transition: transform .15s ease, background .15s ease;
+      align-items: center;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all .15s ease;
     }
 
     .card:hover {
-      background: rgba(18,110,170,.96);
+      background: rgba(20,125,190,.98);
       transform: translateY(-2px);
+    }
+
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
     }
 
     .partner {
       font-size: 11px;
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.18);
-      font-weight: 800;
+      background: rgba(255,255,255,.22);
+      font-weight: 900;
     }
 
-    /* ===== CTA ===== */
+    /* CTA */
     .cta {
-      background: #22c55e;
-      color: #062312;
-      padding: 16px 22px;
-      border-radius: 20px;
-      font-size: 16px;
-      font-weight: 900;
+      background: #000000;
+      color: #ffffff;
       border: none;
+      border-radius: 22px;
+      padding: 18px 26px;
+      font-size: 17px;
+      font-weight: 900;
       cursor: pointer;
       width: fit-content;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+    }
+
+    .cta:hover {
+      background: #111111;
     }
 
     .small {
       font-size: 12px;
       color: #94a3b8;
-      max-width: 720px;
-      line-height: 1.4;
+      max-width: 760px;
+      line-height: 1.45;
     }
   </style>
 </head>
@@ -138,23 +161,37 @@
 
     <!-- TIENDAS -->
     <div class="grid">
+
       <div class="card" onclick="go('AMAZON')">
-        <span>Amazon</span>
+        <div class="card-left">
+          <img src="assets/amazon.png" class="icon" alt="Amazon" />
+          <span>Amazon</span>
+        </div>
         <span class="partner">PARTNER</span>
       </div>
 
       <div class="card" onclick="go('EL_CORTE_INGLES')">
-        <span>El Corte Inglés</span>
+        <div class="card-left">
+          <img src="assets/elcorteingles.png" class="icon" alt="El Corte Inglés" />
+          <span>El Corte Inglés</span>
+        </div>
         <span class="partner">PARTNER</span>
       </div>
 
       <div class="card" onclick="go('MEDIAMARKT')">
-        <span>MediaMarkt</span>
+        <div class="card-left">
+          <img src="assets/mediamarkt.png" class="icon" alt="MediaMarkt" />
+          <span>MediaMarkt</span>
+        </div>
       </div>
 
       <div class="card" onclick="go('DECATHLON')">
-        <span>Decathlon</span>
+        <div class="card-left">
+          <img src="assets/decathlon.png" class="icon" alt="Decathlon" />
+          <span>Decathlon</span>
+        </div>
       </div>
+
     </div>
 
     <!-- CTA -->
