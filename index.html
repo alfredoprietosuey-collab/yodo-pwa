@@ -130,7 +130,162 @@
       color: #fff;
       border: none;
       border-radius: 20px;
-      padding: 18px 26
+      padding: 18px 26px;
+      font-size: 17px;
+      font-weight: 900;
+      cursor: pointer;
+      width: fit-content;
+      margin-bottom: 16px;
+    }
+
+    .cta:hover {
+      background: #111;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #b6c2d2;
+      max-width: 720px;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- LOGO -->
+    <img src="assets/logo.png" alt="Yodo" class="logo" />
+
+    <!-- MENSAJE -->
+    <h1>
+      Un año navegando con Yodo equivale a un año de agua potable para una persona.
+    </h1>
+
+    <p class="subtitle">
+      Nuestro objetivo: ayudar a <strong>10 millones de personas</strong> a acceder a agua potable.
+    </p>
+
+    <!-- TIENDAS -->
+    <div class="grid" id="grid"></div>
+
+    <!-- CTA -->
+    <button class="cta" onclick="goDesktop()">
+      Instalar Yodo en ordenador
+    </button>
+
+    <div class="small">
+      Usamos enlaces de afiliación para financiar proyectos de agua sin ningún coste para ti.
+    </div>
+
+  </div>
+
+  <script>
+    const stores = [
+      { id: 'amazon', name: 'Amazon', icon: 'assets/amazon.svg', partner: true },
+      { id: 'eci', name: 'El Corte Inglés', icon: 'assets/elcorteingles.svg', partner: true },
+      { id: 'mediamarkt', name: 'MediaMarkt', icon: 'assets/mediamarkt.svg', partner: false },
+      { id: 'decathlon', name: 'Decathlon', icon: 'assets/decathlon.svg', partner: false }
+    ];
+
+    const favKey = 'yodo_favs';
+    const grid = document.getElementById('grid');
+
+    function getFavs() {
+      return JSON.parse(localStorage.getItem(favKey) || '[]');
+    }
+
+    function toggleFav(id) {
+      let favs = getFavs();
+      favs = favs.includes(id)
+        ? favs.filter(f => f !== id)
+        : [...favs, id];
+      localStorage.setItem(favKey, JSON.stringify(favs));
+      render();
+    }
+
+    function render() {
+      const favs = getFavs();
+      const ordered = [
+        ...stores.filter(s => favs.includes(s.id)),
+        ...stores.filter(s => !favs.includes(s.id))
+      ];
+
+      grid.innerHTML = '';
+      ordered.forEach(store => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => go(store.id);
+
+        card.innerHTML = `
+          <div class="left">
+            <img src="${store.icon}" class="icon" />
+            ${store.name}
+          </div>
+          <div class="actions">
+            ${store.partner ? `<span class="partner">PARTNER</span>` : ``}
+            <span class="star ${favs.includes(store.id) ? 'active' : ''}"
+              onclick="event.stopPropagation(); toggleFav('${store.id}')">
+              ★
+            </span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function go(id) {
+      alert("Aquí irá el link afiliado de " + id);
+    }
+
+    function goDesktop() {
+      window.location.href = "https://withyodo.com";
+    }
+
+    render();
+  </script>
+
+  <!-- ADD TO HOME PROMPT -->
+  <script>
+    (function () {
+      const shown = localStorage.getItem('yodo_add_home');
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (shown || isStandalone) return;
+
+      const box = document.createElement('div');
+      box.style = `
+        position: fixed;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,.85);
+        color: white;
+        padding: 14px 18px;
+        border-radius: 18px;
+        font-size: 14px;
+        z-index: 9999;
+        max-width: 90%;
+        text-align: center;
+      `;
+
+      box.innerHTML = isIOS
+        ? 'Guarda Yodo en tu móvil:<br><b>Compartir → Añadir a pantalla de inicio</b>'
+        : 'Añade Yodo a tu pantalla de inicio para usarlo como una app';
+
+      document.body.appendChild(box);
+
+      setTimeout(() => {
+        box.remove();
+        localStorage.setItem('yodo_add_home', 'true');
+      }, 8000);
+    })();
+  </script>
+
+</body>
+</html>
+
 
 
 
