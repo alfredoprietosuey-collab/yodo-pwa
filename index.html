@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0b2a44" />
   <title>Yodo</title>
 
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="./manifest.json" />
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,7 +19,7 @@
           rgba(6,18,31,.75),
           rgba(6,18,31,.9)
         ),
-        url("assets/fondo.jpg") center / cover no-repeat fixed;
+        url("./assets/fondo.jpg") center / cover no-repeat fixed;
       min-height: 100vh;
     }
 
@@ -35,7 +35,7 @@
       margin-bottom: 22px;
     }
 
-    /* HERO (NO TOCAR) */
+    /* HERO */
     h1 {
       font-size: clamp(26px, 4.5vw, 40px);
       font-weight: 900;
@@ -131,9 +131,8 @@
 <body>
   <div class="wrap">
 
-    <img src="assets/logo.png" alt="Yodo" class="logo" />
+    <img src="./assets/logo.png" alt="Yodo" class="logo" />
 
-    <!-- HERO -->
     <h1>
       Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.
     </h1>
@@ -144,32 +143,30 @@
     <!-- LOGOS -->
     <div class="stores">
       <div class="store" onclick="go('AMAZON')">
-        <img src="assets/logos/logoamazon.jpg" alt="Amazon">
+        <img src="./assets/logos/logoamazon.jpg" alt="Amazon">
       </div>
 
       <div class="store" onclick="go('EL_CORTE_INGLES')">
-        <img src="assets/logos/logoeci.jpg" alt="El Corte Inglés">
+        <img src="./assets/logos/logoeci.jpg" alt="El Corte Inglés">
       </div>
 
       <div class="store" onclick="go('BOOKING')">
-        <img src="assets/logos/logobooking2.png" alt="Booking">
+        <img src="./assets/logos/logobooking2.png" alt="Booking">
       </div>
 
       <div class="store" onclick="go('OMIO')">
-        <img src="assets/logos/logoomio.png" alt="Omio">
+        <img src="./assets/logos/logoomio.png" alt="Omio">
       </div>
 
       <div class="store" onclick="go('KIWI')">
-        <img src="assets/logos/logokiwi.png" alt="Kiwi.com">
+        <img src="./assets/logos/logokiwi.png" alt="Kiwi.com">
       </div>
     </div>
 
-    <!-- CTA -->
     <button class="cta" onclick="goDesktop()">
       Instalar Yodo en ordenador
     </button>
 
-    <!-- PROYECTO DEL MES (secundario) -->
     <div class="project">
       <strong>Proyecto del mes.</strong>
       Este mes apoyamos iniciativas que ayudan a llevar agua potable a comunidades rurales.
@@ -204,6 +201,7 @@
 
 </body>
 </html>
+
 
 
 
