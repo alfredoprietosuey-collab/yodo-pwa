@@ -6,7 +6,6 @@
   <meta name="theme-color" content="#0b2a44" />
   <title>Yodo</title>
 
-  <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
 
   <style>
@@ -16,17 +15,27 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color: #ffffff;
       background:
-        linear-gradient(rgba(6,18,31,.75), rgba(6,18,31,.9)),
+        linear-gradient(
+          rgba(6,18,31,.75),
+          rgba(6,18,31,.9)
+        ),
         url("assets/fondo.jpg") center / cover no-repeat fixed;
       min-height: 100vh;
     }
 
-    .wrap { max-width: 900px; margin: auto; padding: 28px 22px 40px; }
+    .wrap {
+      max-width: 900px;
+      margin: auto;
+      padding: 28px 22px 50px;
+    }
 
     /* LOGO */
-    .logo { width: 220px; margin-bottom: 22px; }
+    .logo {
+      width: 220px;
+      margin-bottom: 22px;
+    }
 
-    /* TEXTO */
+    /* HERO (NO TOCAR) */
     h1 {
       font-size: clamp(26px, 4.5vw, 40px);
       font-weight: 900;
@@ -39,114 +48,39 @@
       font-size: 16px;
       color: #d1d9e6;
       max-width: 720px;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-
-    /* PROYECTO DEL MES */
-    .project {
-      max-width: 720px;
-      margin-bottom: 34px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(6px);
-    }
-    .project .kicker {
-      font-size: 12px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: #b6c2d2;
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-    .project .title {
-      font-size: 16px;
-      font-weight: 900;
-      margin-bottom: 6px;
-      line-height: 1.35;
-    }
-    .project .desc {
-      font-size: 14px;
-      color: #d1d9e6;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    .project a {
-      color: #ffffff;
-      font-weight: 900;
-      text-decoration: none;
-      opacity: .92;
-    }
-    .project a:hover { opacity: 1; text-decoration: underline; }
-
-    /* SECCIONES */
-    .section-title {
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #b6c2d2;
-      margin: 22px 0 10px;
-      max-width: 720px;
-    }
-
-    /* GRID TIENDAS */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
       margin-bottom: 40px;
+    }
+
+    /* GRID LOGOS */
+    .stores {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 18px;
       max-width: 720px;
+      margin-bottom: 48px;
     }
 
-    .card {
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 16px;
-      padding: 16px 18px;
+    .store {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 22px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       cursor: pointer;
-      transition: transform .15s ease, background .15s ease;
-      backdrop-filter: blur(6px);
-    }
-    .card:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
-
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      font-size: 17px;
+      transition: transform .15s ease, box-shadow .15s ease;
     }
 
-    .icon {
-      width: 22px;
-      height: 22px;
-      filter: brightness(0) invert(1);
-      opacity: .9;
+    .store:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
 
-    .actions { display: flex; align-items: center; gap: 10px; }
-
-    .partner {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.25);
-      font-weight: 800;
+    .store img {
+      max-width: 110px;
+      max-height: 40px;
+      object-fit: contain;
     }
-
-    .star {
-      font-size: 18px;
-      opacity: .4;
-      cursor: pointer;
-      transition: opacity .15s ease, transform .15s ease;
-    }
-    .star.active { opacity: 1; transform: scale(1.15); }
 
     /* CTA */
     .cta {
@@ -158,16 +92,38 @@
       font-size: 17px;
       font-weight: 900;
       cursor: pointer;
-      width: fit-content;
-      margin-bottom: 16px;
+      margin-bottom: 22px;
     }
+
     .cta:hover { background: #111; }
+
+    /* PROYECTO DEL MES */
+    .project {
+      max-width: 720px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.15);
+      font-size: 14px;
+      color: #c9d5e6;
+    }
+
+    .project strong {
+      color: #ffffff;
+      font-weight: 900;
+    }
+
+    .project a {
+      color: #ffffff;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .project a:hover { text-decoration: underline; }
 
     .small {
       font-size: 13px;
       color: #b6c2d2;
+      margin-top: 14px;
       max-width: 720px;
-      line-height: 1.45;
     }
   </style>
 </head>
@@ -175,97 +131,54 @@
 <body>
   <div class="wrap">
 
-    <!-- LOGO -->
     <img src="assets/logo.png" alt="Yodo" class="logo" />
 
-    <!-- MENSAJE (i18n) -->
-    <h1 id="heroTitle"></h1>
-    <p class="subtitle" id="heroSubtitle"></p>
+    <!-- HERO (igual que antes) -->
+    <h1>
+      Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.
+    </h1>
+    <p class="subtitle">
+      ¿Y lo mejor? No te cuesta nada.
+    </p>
 
-    <!-- PROYECTO DEL MES (i18n) -->
-    <div class="project" id="projectBox" style="display:none;">
-      <div class="kicker" id="projectKicker"></div>
-      <div class="title" id="projectTitle"></div>
-      <div class="desc" id="projectDesc"></div>
-      <a id="projectLink" href="#" target="_blank" rel="noopener noreferrer"></a>
+    <!-- LOGOS -->
+    <div class="stores">
+      <div class="store" onclick="go('AMAZON')">
+        <img src="assets/logos/amazon.png" alt="Amazon">
+      </div>
+      <div class="store" onclick="go('EL_CORTE_INGLES')">
+        <img src="assets/logos/elcorteingles.png" alt="El Corte Inglés">
+      </div>
+      <div class="store" onclick="go('BOOKING')">
+        <img src="assets/logos/booking.png" alt="Booking">
+      </div>
+      <div class="store" onclick="go('OMIO')">
+        <img src="assets/logos/omio.png" alt="Omio">
+      </div>
+      <div class="store" onclick="go('KIWI')">
+        <img src="assets/logos/kiwi.png" alt="Kiwi.com">
+      </div>
     </div>
 
-    <!-- GRID (secciones + cards) -->
-    <div id="content"></div>
-
     <!-- CTA -->
-    <button class="cta" id="ctaBtn" onclick="goDesktop()"></button>
+    <button class="cta" onclick="goDesktop()">
+      Instalar Yodo en ordenador
+    </button>
 
-    <div class="small" id="footerNote"></div>
+    <!-- PROYECTO DEL MES (secundario) -->
+    <div class="project">
+      <strong>Proyecto del mes.</strong>
+      Este mes apoyamos iniciativas que ayudan a llevar agua potable a comunidades rurales.
+      <a href="https://withyodo.com" target="_blank">Ver proyecto →</a>
+    </div>
+
+    <div class="small">
+      Usamos enlaces de afiliación para financiar proyectos de agua sin ningún coste para ti.
+    </div>
 
   </div>
 
   <script>
-    // --- Language detection: ES if browser starts with "es", else EN ---
-    function getLang() {
-      const lang = (navigator.language || 'en').toLowerCase();
-      return lang.startsWith('es') ? 'es' : 'en';
-    }
-
-    const lang = getLang();
-    document.documentElement.lang = lang;
-
-    // --- Copy (ES/EN) ---
-    const copy = {
-      es: {
-        heroTitle: "Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.",
-        heroSubtitle: "¿Y lo mejor? No te cuesta nada.",
-        projectKicker: "Proyecto del mes",
-        projectCta: "Ver proyecto →",
-        cta: "Instalar Yodo en ordenador",
-        footer: "Usamos enlaces de afiliación para financiar proyectos de agua sin ningún coste para ti.",
-        sections: { shopping: "Compras", travel: "Viajes" }
-      },
-      en: {
-        heroTitle: "Every time you shop using our links, you help more people get access to clean water.",
-        heroSubtitle: "And the best part? It doesn’t cost you anything.",
-        projectKicker: "Project of the month",
-        projectCta: "See project →",
-        cta: "Install Yodo on desktop",
-        footer: "We use affiliate links to fund clean water projects at no extra cost to you.",
-        sections: { shopping: "Shopping", travel: "Travel" }
-      }
-    };
-
-    // --- Project of the month (edit this monthly) ---
-    const projectOfTheMonth = {
-      enabled: true,
-      url: "https://withyodo.com", // <-- pon aquí la página del proyecto cuando la tengáis
-      es: {
-        title: "Agua potable para comunidades rurales",
-        desc: "Este mes apoyamos iniciativas que ayudan a llevar agua potable a personas que lo necesitan."
-      },
-      en: {
-        title: "Clean water for rural communities",
-        desc: "This month we’re supporting initiatives that help bring clean water to people who need it most."
-      }
-    };
-
-    // Apply copy
-    document.getElementById('heroTitle').innerText = copy[lang].heroTitle;
-    document.getElementById('heroSubtitle').innerText = copy[lang].heroSubtitle;
-    document.getElementById('ctaBtn').innerText = copy[lang].cta;
-    document.getElementById('footerNote').innerText = copy[lang].footer;
-
-    // Project box
-    if (projectOfTheMonth.enabled) {
-      const box = document.getElementById('projectBox');
-      box.style.display = 'block';
-      document.getElementById('projectKicker').innerText = copy[lang].projectKicker;
-      document.getElementById('projectTitle').innerText = projectOfTheMonth[lang].title;
-      document.getElementById('projectDesc').innerText = projectOfTheMonth[lang].desc;
-
-      const link = document.getElementById('projectLink');
-      link.href = projectOfTheMonth.url;
-      link.innerText = copy[lang].projectCta;
-    }
-
-    // --- Affiliate links ---
     const AFF = {
       AMAZON: "https://amzn.to/3L46fn2",
       EL_CORTE_INGLES: "https://tidd.ly/4aEdfSb",
@@ -275,142 +188,17 @@
     };
 
     function go(key) {
-      const url = AFF[key];
-      if (!url) {
-        alert(lang === 'es' ? "Enlace no disponible todavía." : "Link not available yet.");
-        return;
-      }
-      window.location.href = url;
+      window.location.href = AFF[key];
     }
 
     function goDesktop() {
       window.location.href = "https://withyodo.com";
     }
-
-    // --- Stores (with categories) ---
-    const stores = [
-      // COMPRAS
-      { id: "AMAZON", name: "Amazon", icon: "assets/amazon.svg", partner: true, category: "shopping" },
-      { id: "EL_CORTE_INGLES", name: "El Corte Inglés", icon: "assets/elcorteingles.svg", partner: true, category: "shopping" },
-
-      // VIAJES
-      { id: "BOOKING", name: "Booking", icon: "assets/booking.svg", partner: true, category: "travel" },
-      { id: "OMIO", name: "Omio", icon: "assets/omio.svg", partner: true, category: "travel" },
-      { id: "KIWI", name: "Kiwi.com", icon: "assets/kiwi.svg", partner: true, category: "travel" }
-    ];
-
-    const favKey = 'yodo_favs';
-    const content = document.getElementById('content');
-
-    function getFavs() {
-      return JSON.parse(localStorage.getItem(favKey) || '[]');
-    }
-
-    function toggleFav(id) {
-      let favs = getFavs();
-      favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id];
-      localStorage.setItem(favKey, JSON.stringify(favs));
-      render();
-    }
-
-    function makeCard(store, favs) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.onclick = () => go(store.id);
-
-      card.innerHTML = `
-        <div class="left">
-          <img src="${store.icon}" class="icon" alt="" />
-          ${store.name}
-        </div>
-        <div class="actions">
-          ${store.partner ? `<span class="partner">PARTNER</span>` : ``}
-          <span class="star ${favs.includes(store.id) ? 'active' : ''}"
-            onclick="event.stopPropagation(); toggleFav('${store.id}')">
-            ★
-          </span>
-        </div>
-      `;
-      return card;
-    }
-
-    function renderSection(categoryId) {
-      const favs = getFavs();
-
-      const title = document.createElement('div');
-      title.className = 'section-title';
-      title.innerText = copy[lang].sections[categoryId];
-
-      const grid = document.createElement('div');
-      grid.className = 'grid';
-
-      const items = stores
-        .filter(s => s.category === categoryId)
-        .sort((a, b) =>
-          (favs.includes(b.id) ? 1 : 0) - (favs.includes(a.id) ? 1 : 0)
-        );
-
-      items.forEach(store => grid.appendChild(makeCard(store, favs)));
-
-      content.appendChild(title);
-      content.appendChild(grid);
-    }
-
-    function render() {
-      content.innerHTML = '';
-      renderSection('shopping');
-      renderSection('travel');
-    }
-
-    render();
-  </script>
-
-  <!-- ADD TO HOME PROMPT -->
-  <script>
-    (function () {
-      const shown = localStorage.getItem('yodo_add_home');
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-      if (shown || isStandalone) return;
-
-      const box = document.createElement('div');
-      box.style = `
-        position: fixed;
-        bottom: 18px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0,0,0,.85);
-        color: white;
-        padding: 14px 18px;
-        border-radius: 18px;
-        font-size: 14px;
-        z-index: 9999;
-        max-width: 90%;
-        text-align: center;
-      `;
-
-      const currentLang = document.documentElement.lang || 'en';
-      const msg = (currentLang === 'es')
-        ? (isIOS
-            ? 'Guarda Yodo en tu móvil:<br><b>Compartir → Añadir a pantalla de inicio</b>'
-            : 'Añade Yodo a tu pantalla de inicio para usarlo como una app')
-        : (isIOS
-            ? 'Save Yodo to your phone:<br><b>Share → Add to Home Screen</b>'
-            : 'Add Yodo to your home screen to use it like an app');
-
-      box.innerHTML = msg;
-      document.body.appendChild(box);
-
-      setTimeout(() => {
-        box.remove();
-        localStorage.setItem('yodo_add_home', 'true');
-      }, 8000);
-    })();
   </script>
 
 </body>
 </html>
+
 
 
 
