@@ -16,73 +16,97 @@
       color: #ffffff;
       background:
         linear-gradient(
-          rgba(6,18,31,.75),
-          rgba(6,18,31,.9)
+          rgba(6,18,31,.85),
+          rgba(6,18,31,.95)
         ),
         url("./assets/fondo.jpg") center / cover no-repeat fixed;
       min-height: 100vh;
     }
 
     .wrap {
-      max-width: 900px;
+      max-width: 720px;
       margin: auto;
-      padding: 28px 22px 50px;
+      padding: 28px 20px 60px;
     }
 
-    /* LOGO */
     .logo {
-      width: 220px;
-      margin-bottom: 22px;
+      width: 200px;
+      margin-bottom: 24px;
     }
 
-    /* HERO */
     h1 {
-      font-size: clamp(26px, 4.5vw, 40px);
+      font-size: clamp(28px, 5vw, 42px);
       font-weight: 900;
       line-height: 1.15;
-      margin-bottom: 14px;
-      max-width: 820px;
+      margin-bottom: 12px;
     }
 
     .subtitle {
       font-size: 16px;
-      color: #d1d9e6;
-      max-width: 720px;
+      color: #cfd9e6;
+      margin-bottom: 32px;
+    }
+
+    /* LISTA TIPO APP */
+    .stores {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
       margin-bottom: 40px;
     }
 
-    /* GRID LOGOS */
-    .stores {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 18px;
-      max-width: 720px;
-      margin-bottom: 48px;
-    }
-
     .store {
-      background: #ffffff;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
       border-radius: 18px;
-      padding: 22px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 14px;
       cursor: pointer;
-      transition: transform .15s ease, box-shadow .15s ease;
+      transition: background .15s ease, transform .15s ease;
+      backdrop-filter: blur(6px);
     }
 
     .store:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      background: rgba(255,255,255,.22);
+      transform: translateY(-1px);
     }
 
-    .store img {
-      width: 100%;
+    .store-logo {
+      width: 44px;
       height: 44px;
+      border-radius: 12px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .store-logo img {
+      width: 70%;
+      height: 70%;
       object-fit: contain;
     }
 
-    /* CTA */
+    .store-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .store-name {
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .store-desc {
+      font-size: 13px;
+      color: #cfd9e6;
+      margin-top: 2px;
+    }
+
     .cta {
       background: #000;
       color: #fff;
@@ -92,89 +116,101 @@
       font-size: 17px;
       font-weight: 900;
       cursor: pointer;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .cta:hover { background: #111; }
 
-    /* PROYECTO DEL MES */
     .project {
-      max-width: 720px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,.15);
       font-size: 14px;
-      color: #c9d5e6;
+      color: #cfd9e6;
+      border-top: 1px solid rgba(255,255,255,.15);
+      padding-top: 16px;
     }
 
-    .project strong {
-      color: #ffffff;
-      font-weight: 900;
-    }
+    .project strong { color: #fff; }
 
     .project a {
-      color: #ffffff;
+      color: #fff;
       font-weight: 900;
       text-decoration: none;
     }
 
     .project a:hover { text-decoration: underline; }
-
-    .small {
-      font-size: 13px;
-      color: #b6c2d2;
-      margin-top: 14px;
-      max-width: 720px;
-    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
 
-    <img src="./assets/logo.png" alt="Yodo" class="logo" />
+    <img src="./assets/logo.png" class="logo" alt="Yodo">
 
     <h1>
       Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.
     </h1>
-    <p class="subtitle">
-      ¿Y lo mejor? No te cuesta nada.
-    </p>
+    <p class="subtitle">¿Y lo mejor? No te cuesta nada.</p>
 
-    <!-- LOGOS (NOTA: tus archivos están en assets/assets/logos/) -->
+    <!-- LISTA BUENA -->
     <div class="stores">
-      <div class="store" onclick="go('AMAZON')">
-        <img src="./assets/assets/logos/logoamazon.jpg" alt="Amazon">
-      </div>
 
-      <div class="store" onclick="go('EL_CORTE_INGLES')">
-        <img src="./assets/assets/logos/logoeci.jpg" alt="El Corte Inglés">
+      <div class="store" onclick="go('AMAZON')">
+        <div class="store-logo">
+          <img src="./assets/assets/logos/logoamazon.jpg">
+        </div>
+        <div class="store-text">
+          <div class="store-name">Amazon</div>
+          <div class="store-desc">Compra online</div>
+        </div>
       </div>
 
       <div class="store" onclick="go('BOOKING')">
-        <img src="./assets/assets/logos/logobooking2.png" alt="Booking">
+        <div class="store-logo">
+          <img src="./assets/assets/logos/logobooking2.png">
+        </div>
+        <div class="store-text">
+          <div class="store-name">Booking</div>
+          <div class="store-desc">Viajes y hoteles</div>
+        </div>
+      </div>
+
+      <div class="store" onclick="go('EL_CORTE_INGLES')">
+        <div class="store-logo">
+          <img src="./assets/assets/logos/logoeci.jpg">
+        </div>
+        <div class="store-text">
+          <div class="store-name">El Corte Inglés</div>
+          <div class="store-desc">Moda, hogar y más</div>
+        </div>
       </div>
 
       <div class="store" onclick="go('OMIO')">
-        <img src="./assets/assets/logos/logoomio.png" alt="Omio">
+        <div class="store-logo">
+          <img src="./assets/assets/logos/logoomio.png">
+        </div>
+        <div class="store-text">
+          <div class="store-name">Omio</div>
+          <div class="store-desc">Trenes, buses y vuelos</div>
+        </div>
       </div>
 
       <div class="store" onclick="go('KIWI')">
-        <img src="./assets/assets/logos/logokiwi.png" alt="Kiwi.com">
+        <div class="store-logo">
+          <img src="./assets/assets/logos/logokiwi.png">
+        </div>
+        <div class="store-text">
+          <div class="store-name">Kiwi.com</div>
+          <div class="store-desc">Vuelos baratos</div>
+        </div>
       </div>
+
     </div>
 
-    <button class="cta" onclick="goDesktop()">
-      Instalar Yodo en ordenador
-    </button>
+    <button class="cta" onclick="goDesktop()">Instalar Yodo en ordenador</button>
 
     <div class="project">
       <strong>Proyecto del mes.</strong>
-      Este mes apoyamos iniciativas que ayudan a llevar agua potable a comunidades rurales.
-      <a href="https://withyodo.com" target="_blank" rel="noopener noreferrer">Ver proyecto →</a>
-    </div>
-
-    <div class="small">
-      Usamos enlaces de afiliación para financiar proyectos de agua sin ningún coste para ti.
+      Apoyamos iniciativas que llevan agua potable a comunidades rurales.
+      <a href="https://withyodo.com" target="_blank">Ver proyecto →</a>
     </div>
 
   </div>
@@ -188,15 +224,8 @@
       KIWI: "https://kiwi.tpk.mx/Fm92rQvh"
     };
 
-    function go(key) {
-      const url = AFF[key];
-      if (!url) return;
-      window.location.href = url;
-    }
-
-    function goDesktop() {
-      window.location.href = "https://withyodo.com";
-    }
+    function go(k) { window.location.href = AFF[k]; }
+    function goDesktop() { window.location.href = "https://withyodo.com"; }
   </script>
 
 </body>
