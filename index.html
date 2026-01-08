@@ -29,23 +29,35 @@
       padding: 24px 18px 50px;
     }
 
-    .logo {
-      width: 190px;
+    /* TOP: logo a la izquierda alineado con el H1 */
+    .top {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
       margin-bottom: 18px;
     }
 
-    /* HERO (más compacto para ver todo) */
+    .logo {
+      width: 72px;          /* más grande */
+      height: auto;
+      margin: 0;            /* quitamos margen antiguo */
+      flex-shrink: 0;
+      margin-top: 6px;      /* alinea con el inicio del texto */
+    }
+
+    /* HERO compacto */
     h1 {
       font-size: clamp(24px, 4.2vw, 34px);
       font-weight: 900;
       line-height: 1.15;
       margin-bottom: 8px;
+      max-width: 620px;
     }
 
     .subtitle {
       font-size: 14.5px;
       color: #cfd9e6;
-      margin-bottom: 18px;
+      margin-bottom: 0; /* el margen lo controla el .top */
     }
 
     /* LISTA TIPO APP */
@@ -153,12 +165,16 @@
 <body>
   <div class="wrap">
 
-    <img src="./assets/logo.png" class="logo" alt="Yodo">
+    <div class="top">
+      <img src="./assets/logo.png" class="logo" alt="Yodo">
 
-    <h1>
-      Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.
-    </h1>
-    <p class="subtitle">¿Y lo mejor? No te cuesta nada.</p>
+      <div class="hero">
+        <h1>
+          Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.
+        </h1>
+        <p class="subtitle">¿Y lo mejor? No te cuesta nada.</p>
+      </div>
+    </div>
 
     <div class="stores">
 
