@@ -30,27 +30,34 @@
       text-align: left;
     }
 
-    /* LOGO arriba a la izquierda */
-    .logo{
-      width: 92px;       /* más grande */
+    /* HEADER */
+    .header {
+      margin-bottom: 14px;
+    }
+
+    /* LOGO MÁS GRANDE */
+    .logo {
+      width: 120px;        /* 🔥 aquí está el cambio */
       height: auto;
-      margin: 0 0 14px 0;
       display: block;
     }
 
     /* HERO */
+    .hero {
+      max-width: 640px;   /* evita el “bloque” */
+      margin-bottom: 22px;
+    }
+
     h1 {
-      font-size: clamp(24px, 4.2vw, 34px);
+      font-size: clamp(26px, 4.6vw, 36px);
       font-weight: 900;
       line-height: 1.15;
       margin-bottom: 8px;
-      max-width: 680px;
     }
 
     .subtitle {
       font-size: 14.5px;
       color: #cfd9e6;
-      margin-bottom: 18px;
     }
 
     /* LISTA TIPO APP */
@@ -79,7 +86,6 @@
       transform: translateY(-1px);
     }
 
-    /* Destaca sutilmente 1º y 2º */
     .store:first-child,
     .store:nth-child(2) {
       background: rgba(255,255,255,.18);
@@ -102,21 +108,14 @@
       object-fit: contain;
     }
 
-    .store-text {
-      display: flex;
-      flex-direction: column;
-    }
-
     .store-name {
       font-size: 15px;
       font-weight: 900;
-      line-height: 1.1;
     }
 
     .store-desc {
       font-size: 12.5px;
       color: #cfd9e6;
-      margin-top: 2px;
     }
 
     .cta {
@@ -148,7 +147,6 @@
       color: #fff;
       font-weight: 900;
       text-decoration: none;
-      white-space: nowrap;
     }
 
     .project a:hover { text-decoration: underline; }
@@ -158,20 +156,25 @@
 <body>
   <div class="wrap">
 
-    <img src="./assets/logo.png" class="logo" alt="Yodo">
+    <header class="header">
+      <img src="./assets/logo.png" class="logo" alt="Yodo">
+    </header>
 
-    <h1>
-      Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.
-    </h1>
-    <p class="subtitle">¿Y lo mejor? No te cuesta nada.</p>
+    <section class="hero">
+      <h1>
+        Cada vez que compras con nuestros enlaces,<br>
+        ayudas a que más personas tengan acceso a agua potable.
+      </h1>
+      <p class="subtitle">¿Y lo mejor? No te cuesta nada.</p>
+    </section>
 
     <div class="stores">
 
       <div class="store" onclick="go('AMAZON')">
         <div class="store-logo">
-          <img src="./assets/assets/logos/logoamazon.jpg" alt="Amazon">
+          <img src="./assets/assets/logos/logoamazon.jpg">
         </div>
-        <div class="store-text">
+        <div>
           <div class="store-name">Amazon</div>
           <div class="store-desc">Compra online</div>
         </div>
@@ -179,9 +182,9 @@
 
       <div class="store" onclick="go('BOOKING')">
         <div class="store-logo">
-          <img src="./assets/assets/logos/logobooking2.png" alt="Booking">
+          <img src="./assets/assets/logos/logobooking2.png">
         </div>
-        <div class="store-text">
+        <div>
           <div class="store-name">Booking</div>
           <div class="store-desc">Viajes y hoteles</div>
         </div>
@@ -189,9 +192,9 @@
 
       <div class="store" onclick="go('EL_CORTE_INGLES')">
         <div class="store-logo">
-          <img src="./assets/assets/logos/logoeci.jpg" alt="El Corte Inglés">
+          <img src="./assets/assets/logos/logoeci.jpg">
         </div>
-        <div class="store-text">
+        <div>
           <div class="store-name">El Corte Inglés</div>
           <div class="store-desc">Moda, hogar y más</div>
         </div>
@@ -199,9 +202,9 @@
 
       <div class="store" onclick="go('OMIO')">
         <div class="store-logo">
-          <img src="./assets/assets/logos/logoomio.png" alt="Omio">
+          <img src="./assets/assets/logos/logoomio.png">
         </div>
-        <div class="store-text">
+        <div>
           <div class="store-name">Omio</div>
           <div class="store-desc">Trenes, buses y vuelos</div>
         </div>
@@ -209,9 +212,9 @@
 
       <div class="store" onclick="go('KIWI')">
         <div class="store-logo">
-          <img src="./assets/assets/logos/logokiwi.png" alt="Kiwi.com">
+          <img src="./assets/assets/logos/logokiwi.png">
         </div>
-        <div class="store-text">
+        <div>
           <div class="store-name">Kiwi.com</div>
           <div class="store-desc">Vuelos baratos</div>
         </div>
@@ -239,9 +242,7 @@
     };
 
     function go(k) {
-      const url = AFF[k];
-      if (!url) return;
-      window.location.href = url;
+      window.location.href = AFF[k];
     }
 
     function goDesktop() {
@@ -251,7 +252,6 @@
 
 </body>
 </html>
-
 
 
 
