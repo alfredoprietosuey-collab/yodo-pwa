@@ -34,7 +34,6 @@
       margin-bottom: 18px;
     }
 
-    /* HERO (más compacto para ver todo) */
     h1 {
       font-size: clamp(24px, 4.2vw, 34px);
       font-weight: 900;
@@ -48,7 +47,6 @@
       margin-bottom: 18px;
     }
 
-    /* LISTA TIPO APP */
     .stores {
       display: flex;
       flex-direction: column;
@@ -74,7 +72,6 @@
       transform: translateY(-1px);
     }
 
-    /* Destaca sutilmente 1º y 2º */
     .store:first-child,
     .store:nth-child(2) {
       background: rgba(255,255,255,.18);
@@ -155,93 +152,368 @@
 
     <img src="./assets/logo.png" class="logo" alt="Yodo">
 
-    <h1>
+    <h1 id="t_headline">
       Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.
     </h1>
-    <p class="subtitle">¿Y lo mejor? No te cuesta nada.</p>
+    <p class="subtitle" id="t_subtitle">¿Y lo mejor? No te cuesta nada.</p>
+
+    <p class="subtitle" style="margin-top:-10px; margin-bottom:18px;">
+      <a href="#" id="changeCountry" style="color:#fff; font-weight:900; text-decoration:none;">Cambiar país</a>
+    </p>
 
     <div class="stores">
 
-      <div class="store" onclick="go('AMAZON')">
+      <div class="store" data-store="AMAZON" data-scope="global" onclick="go('AMAZON')">
         <div class="store-logo">
           <img src="./assets/assets/logos/logoamazon.jpg" alt="Amazon">
         </div>
         <div class="store-text">
           <div class="store-name">Amazon</div>
-          <div class="store-desc">Compra online</div>
+          <div class="store-desc" id="desc_amazon">Compra online</div>
         </div>
       </div>
 
-      <div class="store" onclick="go('BOOKING')">
+      <div class="store" data-store="BOOKING" data-scope="global" onclick="go('BOOKING')">
         <div class="store-logo">
           <img src="./assets/assets/logos/logobooking2.png" alt="Booking">
         </div>
         <div class="store-text">
           <div class="store-name">Booking</div>
-          <div class="store-desc">Viajes y hoteles</div>
+          <div class="store-desc" id="desc_booking">Viajes y hoteles</div>
         </div>
       </div>
 
-      <div class="store" onclick="go('EL_CORTE_INGLES')">
+      <div class="store" data-store="EL_CORTE_INGLES" data-scope="local" onclick="go('EL_CORTE_INGLES')">
         <div class="store-logo">
           <img src="./assets/assets/logos/logoeci.jpg" alt="El Corte Inglés">
         </div>
         <div class="store-text">
           <div class="store-name">El Corte Inglés</div>
-          <div class="store-desc">Moda, hogar y más</div>
+          <div class="store-desc" id="desc_eci">Moda, hogar y más</div>
         </div>
       </div>
 
-      <div class="store" onclick="go('OMIO')">
+      <div class="store" data-store="OMIO" data-scope="global" onclick="go('OMIO')">
         <div class="store-logo">
           <img src="./assets/assets/logos/logoomio.png" alt="Omio">
         </div>
         <div class="store-text">
           <div class="store-name">Omio</div>
-          <div class="store-desc">Trenes, buses y vuelos</div>
+          <div class="store-desc" id="desc_omio">Trenes, buses y vuelos</div>
         </div>
       </div>
 
-      <div class="store" onclick="go('KIWI')">
+      <div class="store" data-store="KIWI" data-scope="global" onclick="go('KIWI')">
         <div class="store-logo">
           <img src="./assets/assets/logos/logokiwi.png" alt="Kiwi.com">
         </div>
         <div class="store-text">
           <div class="store-name">Kiwi.com</div>
-          <div class="store-desc">Vuelos baratos</div>
+          <div class="store-desc" id="desc_kiwi">Vuelos baratos</div>
         </div>
       </div>
 
     </div>
 
-    <button class="cta" onclick="goDesktop()">Instalar Yodo en ordenador</button>
+    <button class="cta" id="t_cta" onclick="goDesktop()">Instalar Yodo en ordenador</button>
 
     <div class="project">
-      <strong>Último proyecto.</strong>
-      Apoyamos iniciativas que llevan agua potable a comunidades rurales.
-      <a href="https://withyodo.com/es/agua-para-10-millones/" target="_blank" rel="noopener noreferrer">Ver proyecto →</a>
+      <strong id="t_projectStrong">Último proyecto.</strong>
+      <span id="t_projectText">Apoyamos iniciativas que llevan agua potable a comunidades rurales.</span>
+      <a id="t_projectLink" href="https://withyodo.com/es/agua-para-10-millones/" target="_blank" rel="noopener noreferrer">Ver proyecto →</a>
     </div>
 
   </div>
 
   <script>
-    const AFF = {
-      AMAZON: "https://amzn.to/3L46fn2",
-      EL_CORTE_INGLES: "https://tidd.ly/4aEdfSb",
-      BOOKING: "https://booking.tpk.mx/SedUBfSh",
-      OMIO: "https://omio.tpk.mx/rHNHiHH5",
-      KIWI: "https://kiwi.tpk.mx/Fm92rQvh"
+    // ===============================
+    // 1) País + idioma (locale)
+    // ===============================
+    const COUNTRY_KEY = "preferred_country";
+
+    const COUNTRIES = [
+      { code: "ES", label: "España", flag: "🇪🇸" },
+      { code: "GB", label: "UK", flag: "🇬🇧" },
+      { code: "FR", label: "France", flag: "🇫🇷" },
+      { code: "DE", label: "Germany", flag: "🇩🇪" },
+      { code: "NL", label: "Netherlands", flag: "🇳🇱" },
+      { code: "IT", label: "Italy", flag: "🇮🇹" },
+      { code: "US", label: "USA", flag: "🇺🇸" },
+      { code: "OTHER", label: "Others", flag: "🌍" }
+    ];
+
+    const COUNTRY_TO_LOCALE = {
+      ES: "es",
+      GB: "en",
+      FR: "fr",
+      DE: "de",
+      NL: "nl",
+      IT: "it",
+      US: "en",
+      OTHER: "en"
     };
 
+    function getCountry() {
+      return localStorage.getItem(COUNTRY_KEY) || null;
+    }
+    function setCountry(code) {
+      localStorage.setItem(COUNTRY_KEY, code);
+    }
+    function getLocale() {
+      const c = getCountry() || "OTHER";
+      return COUNTRY_TO_LOCALE[c] || "en";
+    }
+
+    // ===============================
+    // 2) Textos (UI) por idioma
+    // ===============================
+    const I18N = {
+      es: {
+        pick: "¿En qué país compras normalmente?",
+        changeCountry: "Cambiar país",
+        headline: "Cada vez que compras con nuestros enlaces, ayudas a que más personas tengan acceso a agua potable.",
+        subtitle: "¿Y lo mejor? No te cuesta nada.",
+        cta: "Instalar Yodo en ordenador",
+        projectStrong: "Último proyecto.",
+        projectText: "Apoyamos iniciativas que llevan agua potable a comunidades rurales.",
+        projectLink: "Ver proyecto →",
+        // descripciones
+        desc_amazon: "Compra online",
+        desc_booking: "Viajes y hoteles",
+        desc_eci: "Moda, hogar y más",
+        desc_omio: "Trenes, buses y vuelos",
+        desc_kiwi: "Vuelos baratos"
+      },
+      en: {
+        pick: "Which country do you usually shop in?",
+        changeCountry: "Change country",
+        headline: "Every time you shop with our links, you help more people get access to safe drinking water.",
+        subtitle: "And the best part? It costs you nothing.",
+        cta: "Install Yodo on desktop",
+        projectStrong: "Latest project.",
+        projectText: "We support initiatives that bring safe drinking water to rural communities.",
+        projectLink: "View project →",
+        desc_amazon: "Shop online",
+        desc_booking: "Hotels & travel",
+        desc_eci: "Fashion, home & more",
+        desc_omio: "Trains, buses & flights",
+        desc_kiwi: "Cheap flights"
+      },
+      fr: {
+        pick: "Dans quel pays achetez-vous le plus souvent ?",
+        changeCountry: "Changer de pays",
+        headline: "Chaque fois que vous achetez avec nos liens, vous aidez davantage de personnes à avoir accès à l’eau potable.",
+        subtitle: "Et le mieux ? Ça ne vous coûte rien.",
+        cta: "Installer Yodo sur ordinateur",
+        projectStrong: "Dernier projet.",
+        projectText: "Nous soutenons des initiatives qui apportent de l’eau potable aux communautés rurales.",
+        projectLink: "Voir le projet →",
+        desc_amazon: "Acheter en ligne",
+        desc_booking: "Hôtels & voyages",
+        desc_eci: "Mode, maison & plus",
+        desc_omio: "Trains, bus & vols",
+        desc_kiwi: "Vols pas chers"
+      },
+      de: {
+        pick: "In welchem Land kaufst du normalerweise ein?",
+        changeCountry: "Land ändern",
+        headline: "Jedes Mal, wenn du über unsere Links einkaufst, hilfst du mehr Menschen Zugang zu sauberem Trinkwasser zu bekommen.",
+        subtitle: "Und das Beste? Es kostet dich nichts.",
+        cta: "Yodo am Desktop installieren",
+        projectStrong: "Letztes Projekt.",
+        projectText: "Wir unterstützen Initiativen, die ländliche Gemeinden mit Trinkwasser versorgen.",
+        projectLink: "Projekt ansehen →",
+        desc_amazon: "Online einkaufen",
+        desc_booking: "Hotels & Reisen",
+        desc_eci: "Mode, Zuhause & mehr",
+        desc_omio: "Züge, Busse & Flüge",
+        desc_kiwi: "Günstige Flüge"
+      },
+      nl: {
+        pick: "In welk land koop je meestal?",
+        changeCountry: "Land wijzigen",
+        headline: "Elke keer dat je via onze links koopt, help je meer mensen toegang te krijgen tot veilig drinkwater.",
+        subtitle: "En het beste? Het kost je niets.",
+        cta: "Yodo op desktop installeren",
+        projectStrong: "Laatste project.",
+        projectText: "We steunen initiatieven die schoon drinkwater naar plattelandsgemeenschappen brengen.",
+        projectLink: "Project bekijken →",
+        desc_amazon: "Online winkelen",
+        desc_booking: "Hotels & reizen",
+        desc_eci: "Mode, wonen & meer",
+        desc_omio: "Treinen, bussen & vluchten",
+        desc_kiwi: "Goedkope vluchten"
+      },
+      it: {
+        pick: "In quale paese acquisti di solito?",
+        changeCountry: "Cambia paese",
+        headline: "Ogni volta che acquisti con i nostri link, aiuti più persone ad avere accesso all’acqua potabile.",
+        subtitle: "E la cosa migliore? Non ti costa nulla.",
+        cta: "Installa Yodo su computer",
+        projectStrong: "Ultimo progetto.",
+        projectText: "Sosteniamo iniziative che portano acqua potabile alle comunità rurali.",
+        projectLink: "Vedi progetto →",
+        desc_amazon: "Compra online",
+        desc_booking: "Hotel e viaggi",
+        desc_eci: "Moda, casa e altro",
+        desc_omio: "Treni, bus e voli",
+        desc_kiwi: "Voli economici"
+      }
+    };
+
+    function tr(key) {
+      const locale = getLocale();
+      return (I18N[locale] && I18N[locale][key]) || (I18N.en && I18N.en[key]) || "";
+    }
+
+    // ===============================
+    // 3) Links afiliado por país (config)
+    //    Amazon/Booking/Omio/Kiwi son globales (siempre visibles),
+    //    pero el link cambia según país (cuando lo tengáis).
+    // ===============================
+    const AFF = {
+      ES: {
+        AMAZON: "TODO_AMAZON_ES",
+        BOOKING: "TODO_BOOKING_ES",
+        OMIO: "TODO_OMIO_ES",
+        KIWI: "TODO_KIWI_ES",
+        EL_CORTE_INGLES: "https://tidd.ly/4aEdfSb"
+      },
+      GB: { AMAZON: "TODO_AMAZON_GB", BOOKING: "TODO_BOOKING_GB", OMIO: "TODO_OMIO_GB", KIWI: "TODO_KIWI_GB" },
+      FR: { AMAZON: "TODO_AMAZON_FR", BOOKING: "TODO_BOOKING_FR", OMIO: "TODO_OMIO_FR", KIWI: "TODO_KIWI_FR" },
+      DE: { AMAZON: "TODO_AMAZON_DE", BOOKING: "TODO_BOOKING_DE", OMIO: "TODO_OMIO_DE", KIWI: "TODO_KIWI_DE" },
+      NL: { AMAZON: "TODO_AMAZON_NL", BOOKING: "TODO_BOOKING_NL", OMIO: "TODO_OMIO_NL", KIWI: "TODO_KIWI_NL" },
+      IT: { AMAZON: "TODO_AMAZON_IT", BOOKING: "TODO_BOOKING_IT", OMIO: "TODO_OMIO_IT", KIWI: "TODO_KIWI_IT" },
+      US: { AMAZON: "TODO_AMAZON_US", BOOKING: "TODO_BOOKING_US", OMIO: "TODO_OMIO_US", KIWI: "TODO_KIWI_US" },
+      OTHER: {
+        AMAZON: "TODO_AMAZON_OTHER",
+        BOOKING: "TODO_BOOKING_OTHER",
+        OMIO: "TODO_OMIO_OTHER",
+        KIWI: "TODO_KIWI_OTHER"
+      }
+    };
+
+    // ===============================
+    // 4) Navegación a tienda (onclick)
+    // ===============================
     function go(k) {
-      const url = AFF[k];
-      if (!url) return;
+      const country = getCountry() || "OTHER";
+      const map = AFF[country] || AFF.OTHER;
+      const url = map && map[k];
+
+      // Evita mandar a placeholders
+      if (!url || url.startsWith("TODO_")) return;
+
       window.location.href = url;
     }
+    window.go = go;
 
     function goDesktop() {
       window.location.href = "https://withyodo.com";
     }
+    window.goDesktop = goDesktop;
+
+    // ===============================
+    // 5) Aplicar país: idioma + visibilidad
+    // ===============================
+    function applyCountryUI() {
+      const country = getCountry() || "OTHER";
+      const locale = getLocale();
+      document.documentElement.lang = locale;
+
+      const el = (id) => document.getElementById(id);
+
+      if (el("t_headline")) el("t_headline").textContent = tr("headline");
+      if (el("t_subtitle")) el("t_subtitle").textContent = tr("subtitle");
+      if (el("t_cta")) el("t_cta").textContent = tr("cta");
+      if (el("t_projectStrong")) el("t_projectStrong").textContent = tr("projectStrong");
+      if (el("t_projectText")) el("t_projectText").textContent = tr("projectText");
+      if (el("t_projectLink")) el("t_projectLink").textContent = tr("projectLink");
+      if (el("changeCountry")) el("changeCountry").textContent = tr("changeCountry");
+
+      // Descripciones
+      if (el("desc_amazon")) el("desc_amazon").textContent = tr("desc_amazon");
+      if (el("desc_booking")) el("desc_booking").textContent = tr("desc_booking");
+      if (el("desc_eci")) el("desc_eci").textContent = tr("desc_eci");
+      if (el("desc_omio")) el("desc_omio").textContent = tr("desc_omio");
+      if (el("desc_kiwi")) el("desc_kiwi").textContent = tr("desc_kiwi");
+
+      // Proyecto link (si tienes URLs por idioma, ponlas aquí)
+      if (el("t_projectLink")) {
+        el("t_projectLink").href = (locale === "es")
+          ? "https://withyodo.com/es/agua-para-10-millones/"
+          : "https://withyodo.com";
+      }
+
+      // Visibilidad: globales siempre; ECI solo ES
+      document.querySelectorAll(".store[data-store]").forEach((card) => {
+        const storeId = card.getAttribute("data-store");
+        if (storeId === "EL_CORTE_INGLES") {
+          card.style.display = (country === "ES") ? "" : "none";
+        } else {
+          card.style.display = "";
+        }
+      });
+    }
+
+    // ===============================
+    // 6) Modal selector país
+    // ===============================
+    function openCountryPicker() {
+      const existing = document.getElementById("countryModal");
+      if (existing) existing.remove();
+
+      const modal = document.createElement("div");
+      modal.id = "countryModal";
+      modal.style.cssText =
+        "position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;z-index:9999;padding:16px;";
+
+      modal.innerHTML = `
+        <div style="width:100%;max-width:520px;background:#fff;border-radius:18px;padding:16px;box-shadow:0 12px 30px rgba(0,0,0,.25);">
+          <div style="font-weight:900;font-size:16px;margin-bottom:10px;color:#111;">${tr("pick")}</div>
+          <div id="countryGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;"></div>
+        </div>
+      `;
+
+      const grid = modal.querySelector("#countryGrid");
+      const current = getCountry() || "OTHER";
+
+      COUNTRIES.forEach((c) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.style.cssText =
+          `border:1px solid #e5e5e5;border-radius:14px;padding:12px;background:${c.code===current?"#111":"#fff"};color:${c.code===current?"#fff":"#111"};text-align:left;cursor:pointer;`;
+        btn.innerHTML = `<div style="font-size:18px">${c.flag} <span style="font-weight:700">${c.label}</span></div>`;
+        btn.onclick = () => {
+          setCountry(c.code);
+          applyCountryUI();
+          modal.remove();
+        };
+        grid.appendChild(btn);
+      });
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) modal.remove();
+      });
+
+      document.body.appendChild(modal);
+    }
+
+    // ===============================
+    // 7) Init
+    // ===============================
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!getCountry()) openCountryPicker();
+      applyCountryUI();
+
+      const change = document.getElementById("changeCountry");
+      if (change) {
+        change.addEventListener("click", (e) => {
+          e.preventDefault();
+          openCountryPicker();
+        });
+      }
+    });
   </script>
 
 </body>
