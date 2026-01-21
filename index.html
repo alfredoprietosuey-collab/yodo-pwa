@@ -268,19 +268,15 @@
       OTHER: "en"
     };
 
-    function getCountry() {
-      return localStorage.getItem(COUNTRY_KEY) || null;
-    }
-    function setCountry(code) {
-      localStorage.setItem(COUNTRY_KEY, code);
-    }
+    function getCountry() { return localStorage.getItem(COUNTRY_KEY) || null; }
+    function setCountry(code) { localStorage.setItem(COUNTRY_KEY, code); }
     function getLocale() {
       const c = getCountry() || "OTHER";
       return COUNTRY_TO_LOCALE[c] || "en";
     }
 
     // ===============================
-    // i18n
+    // Textos (UI) por idioma
     // ===============================
     const I18N = {
       es: {
@@ -381,35 +377,51 @@
     }
 
     // ===============================
-    // Links afiliado por país (config)
+    // Links afiliados
+    // - España: links oficiales (los de siempre)
+    // - Booking: SIEMPRE el mismo link global (Travelpayouts)
+    // - Resto: por ahora fallback a ES (hasta que tengáis links por país)
     // ===============================
     const AFF = {
       ES: {
-        AMAZON: "TODO_AMAZON_ES",
-        BOOKING: "TODO_BOOKING_ES",
-        OMIO: "TODO_OMIO_ES",
-        KIWI: "TODO_KIWI_ES",
+        AMAZON: "https://amzn.to/3L46fn2",
+        OMIO: "https://omio.tpk.mx/rHNHiHH5",
+        KIWI: "https://kiwi.tpk.mx/Fm92rQvh",
         EL_CORTE_INGLES: "https://tidd.ly/4aEdfSb"
       },
-      GB: { AMAZON: "TODO_AMAZON_GB", BOOKING: "TODO_BOOKING_GB", OMIO: "TODO_OMIO_GB", KIWI: "TODO_KIWI_GB" },
-      FR: { AMAZON: "TODO_AMAZON_FR", BOOKING: "TODO_BOOKING_FR", OMIO: "TODO_OMIO_FR", KIWI: "TODO_KIWI_FR" },
-      DE: { AMAZON: "TODO_AMAZON_DE", BOOKING: "TODO_BOOKING_DE", OMIO: "TODO_OMIO_DE", KIWI: "TODO_KIWI_DE" },
-      NL: { AMAZON: "TODO_AMAZON_NL", BOOKING: "TODO_BOOKING_NL", OMIO: "TODO_OMIO_NL", KIWI: "TODO_KIWI_NL" },
-      IT: { AMAZON: "TODO_AMAZON_IT", BOOKING: "TODO_BOOKING_IT", OMIO: "TODO_OMIO_IT", KIWI: "TODO_KIWI_IT" },
-      US: { AMAZON: "TODO_AMAZON_US", BOOKING: "TODO_BOOKING_US", OMIO: "TODO_OMIO_US", KIWI: "TODO_KIWI_US" },
-      OTHER: { AMAZON: "TODO_AMAZON_OTHER", BOOKING: "TODO_BOOKING_OTHER", OMIO: "TODO_OMIO_OTHER", KIWI: "TODO_KIWI_OTHER" }
+      GB: {},
+      FR: {},
+      DE: {},
+      NL: {},
+      IT: {},
+      US: {},
+      OTHER: {}
     };
 
-    // ===============================
-    // Navegación
-    // ===============================
+    const BOOKING_GLOBAL = "https://booking.tpk.mx/X5Up2XTP";
+
     function go(k) {
       const country = getCountry() || "OTHER";
-      const map = AFF[country] || AFF.OTHER;
-      const url = map && map[k];
 
-      if (!url || url.startsWith("TODO_")) return;
+      // Booking siempre igual
+      if (k === "BOOKING") {
+        window.location.href = BOOKING_GLOBAL;
+        return;
+      }
 
+      // El Corte Inglés solo ES
+      if (k === "EL_CORTE_INGLES") {
+        if (country === "ES") window.location.href = AFF.ES.EL_CORTE_INGLES;
+        return;
+      }
+
+      // Globales: intenta link del país, si no existe -> fallback a ES
+      const url =
+        (AFF[country] && AFF[country][k]) ||
+        (AFF.ES && AFF.ES[k]) ||
+        null;
+
+      if (!url) return;
       window.location.href = url;
     }
     window.go = go;
@@ -434,7 +446,7 @@
     }
 
     // ===============================
-    // Aplicar UI
+    // Aplicar UI: idioma + visibilidad ECI
     // ===============================
     function applyCountryUI() {
       const country = getCountry() || "OTHER";
